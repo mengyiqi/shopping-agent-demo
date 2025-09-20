@@ -4,6 +4,8 @@ Multi-turn text + image search over a demo electronics catalog, powered by a Ret
 
 This is a personal side project for self-learning. Feel free to poke around, open issues, or share feedback!
 
+<img width="810" height="1101" alt="Screenshot 2025-09-20 at 8 30 21 AM" src="https://github.com/user-attachments/assets/70f610f2-310f-4281-9b7d-967e60e6ea3f" />
+
 ⸻
 
 ✨ Features
