@@ -1,4 +1,4 @@
-RAG Shopping Agent
+***🛍️ RAG Shopping Agent***
 
 Multi-turn text + image search over a demo electronics catalog, powered by a Retrieval-Augmented Generation (RAG) backend and a lightweight React frontend.
 
