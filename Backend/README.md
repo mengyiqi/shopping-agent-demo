@@ -1,4 +1,4 @@
-# LangGraph Chatbot API
+# Rag Shopping Agent Backend
 
 A powerful Python backend for an LLM chatbot built with LangGraph, featuring agentic workflows, thread management, and memory capabilities.
 
@@ -99,27 +99,25 @@ Send a message to the chatbot with RAG capabilities.
 **Request Body:**
 ```json
 {
-  "message": "Hello, how are you?",
-  "thread_id": "optional-thread-id",
-  "user_id": "optional-user-id",
-  "context": {
-    "additional_info": "any context data"
-  }
+  "message": "find me this product",
+  "thread_id": "thread-id",
+  "user_id": "user-id",
+  "query_image": "jpg image file upload"
 }
 ```
 
 **Response:**
 ```json
 {
-  "response": "Hello! I'm doing well, thank you for asking. How can I help you today?",
-  "thread_id": "generated-thread-id",
-  "message_id": "unique-message-id",
-  "timestamp": "2024-01-01T12:00:00",
-  "metadata": {
-    "user_id": "user-123",
-    "timestamp": "2024-01-01T12:00:00",
-    "context": {}
-  }
+    "response": "Okay! I found two OLED TVs with 4K resolution:\n\n*   **Samsung - 77\" Class S95D Series OLED 4K Glare-Free Smart Tizen TV:** This is a premium Samsung AI TV with dramatic detail, reduced glare, and powerful brightness for $1999.99.\n*   **LG - 55\" Class C5 Series OLED TV:** This LG OLED TV offers stunningly realistic picture quality, immersive sound, and enhanced brightness for $1299.99.\n\nWould you like more details on either of these?",
+    "thread_id": " 1  ",
+    "message_id": "d7c70591-d40e-48c3-8af1-2093e900a442",
+    "timestamp": "2025-09-20T08:21:09.295585",
+    "metadata": {
+        "user_id": " user_1",
+        "timestamp": "2025-09-20T08:21:09.295511",
+        "context": {}
+    }
 }
 ```
 
@@ -128,28 +126,26 @@ Send a message to the chatbot with RAG capabilities.
 #### POST `/api/v1/products/`
 Create a new product.
 
+```
+curl --location 'http://127.0.0.1:8888/api/v1/products' \
+--form 'title="Samsung - 77” Class S95D Series OLED 4K Glare-Free Smart Tizen TV"' \
+--form 'description="This premium Samsung AI TV features dramatic detail, reduced glare, and our most powerful brightness."' \
+--form 'price="1999.99"' \
+--form 'category="Electronics"' \
+--form 'tags="oled tv"' \
+--form 'tags="4k resolution
+"' \
+--form 'tags="tv"' \
+--form 'images=@"path to image.jpeg"'
+```
+
 #### GET `/api/v1/products/`
 Get all products.
 
 #### GET `/api/v1/products/{product_id}`
 Get a specific product by ID.
 
-#### PUT `/api/v1/products/{product_id}`
-Update an existing product.
-
-#### DELETE `/api/v1/products/{product_id}`
-Delete a product.
-
-#### POST `/api/v1/products/search`
-Search products using semantic similarity.
-
-#### GET `/api/v1/products/search/simple`
-Simple search with query parameters.
-
-#### GET `/api/v1/products/category/{category}`
-Get products by category.
-
-### Thread Management
+### Thread Management (For Debugging)
 
 #### GET `/api/v1/threads`
 List all conversation threads.
@@ -184,7 +180,6 @@ The chatbot uses LangGraph's state graph to process messages through multiple st
 - **Semantic Search**: Products are indexed using embeddings for natural language queries
 - **Context Retrieval**: Relevant product information is automatically retrieved based on user queries
 - **Vector Store**: ChromaDB provides efficient similarity search and storage
-- **Real-time Updates**: Product information is immediately available to the chatbot after creation
 
 ### Thread Management
 
@@ -223,22 +218,6 @@ Backend/
 └── README.md
 ```
 
-### Adding Custom Tools
-
-To add custom tools to the agent, modify `app/agent/chatbot_agent.py`:
-
-```python
-from langchain_core.tools import tool
-
-@tool
-def custom_tool(input: str) -> str:
-    """Description of what this tool does."""
-    # Your tool logic here
-    return "Tool result"
-
-# Add to the agent graph
-workflow.add_node("custom_tool", custom_tool)
-```
 
 ### Configuration
 
